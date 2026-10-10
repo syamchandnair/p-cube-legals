@@ -10,33 +10,80 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdvisoryResearchRouteImport } from './routes/advisory-research'
+import { Route as ChambersRouteImport } from './routes/chambers'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PracticeAreasRouteImport } from './routes/practice-areas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdvisoryResearchRoute = AdvisoryResearchRouteImport.update({
+  id: '/advisory-research',
+  path: '/advisory-research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChambersRoute = ChambersRouteImport.update({
+  id: '/chambers',
+  path: '/chambers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PracticeAreasRoute = PracticeAreasRouteImport.update({
+  id: '/practice-areas',
+  path: '/practice-areas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/advisory-research': typeof AdvisoryResearchRoute
+  '/chambers': typeof ChambersRoute
+  '/contact': typeof ContactRoute
+  '/practice-areas': typeof PracticeAreasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/advisory-research': typeof AdvisoryResearchRoute
+  '/chambers': typeof ChambersRoute
+  '/contact': typeof ContactRoute
+  '/practice-areas': typeof PracticeAreasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/advisory-research': typeof AdvisoryResearchRoute
+  '/chambers': typeof ChambersRoute
+  '/contact': typeof ContactRoute
+  '/practice-areas': typeof PracticeAreasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/advisory-research' | '/chambers' | '/contact' | '/practice-areas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/advisory-research' | '/chambers' | '/contact' | '/practice-areas'
+  id:
+    | '__root__'
+    | '/'
+    | '/advisory-research'
+    | '/chambers'
+    | '/contact'
+    | '/practice-areas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdvisoryResearchRoute: typeof AdvisoryResearchRoute
+  ChambersRoute: typeof ChambersRoute
+  ContactRoute: typeof ContactRoute
+  PracticeAreasRoute: typeof PracticeAreasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +95,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/advisory-research': {
+      id: '/advisory-research'
+      path: '/advisory-research'
+      fullPath: '/advisory-research'
+      preLoaderRoute: typeof AdvisoryResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chambers': {
+      id: '/chambers'
+      path: '/chambers'
+      fullPath: '/chambers'
+      preLoaderRoute: typeof ChambersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/practice-areas': {
+      id: '/practice-areas'
+      path: '/practice-areas'
+      fullPath: '/practice-areas'
+      preLoaderRoute: typeof PracticeAreasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdvisoryResearchRoute: AdvisoryResearchRoute,
+  ChambersRoute: ChambersRoute,
+  ContactRoute: ContactRoute,
+  PracticeAreasRoute: PracticeAreasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
