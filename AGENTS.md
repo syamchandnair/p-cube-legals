@@ -8,3 +8,9 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Architecture
+- Keep public content in distinct TanStack file routes and use shared chambers chrome in the root; each page remains directly shareable with its own metadata.
+- Keep entry consent in session storage and require explicit acceptance; consent is visit-scoped and is not client or case data.
+- The consultation desk downloads an unsent draft until verified contact details and a delivery service are supplied; never imply a draft was submitted.
+- Define the visual palette in global semantic CSS tokens; page elements must remain theme-adherent.
