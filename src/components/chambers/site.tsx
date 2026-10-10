@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { DISCLAIMER_KEY, hasAcceptedDisclaimer } from '@/lib/disclaimer';
 
 const nav = [{ to: '/', label: 'Home' }, { to: '/practice-areas', label: 'Practice Areas' }, { to: '/advisory-research', label: 'Advisory & Research' }, { to: '/chambers', label: 'The Chambers' }, { to: '/contact', label: 'Contact' }] as const;
-import logoAsset from '@/assets/pcubelegals-logo.png.asset.json';
+import logoBlack from '@/assets/pcubelegals-logo-black.png';
+import logoWhite from '@/assets/pcubelegals-logo-white.png';
 export function Brand({ footer = false }: { footer?: boolean }) {
-  return <Link to="/" className="inline-flex items-center" aria-label="P Cube Legals home"><img src={logoAsset.url} alt="P Cube Legals" width={791} height={251} className={`w-auto ${footer ? 'h-14' : 'h-12'}`} /></Link>;
+  return <Link to="/" className="inline-flex items-center" aria-label="P Cube Legals home"><img src={footer ? logoWhite : logoBlack} alt="P Cube Legals" width={791} height={251} className={`w-auto ${footer ? 'h-14' : 'h-12'}`} /></Link>;
 }
 export function Header() {
   const [mobile, setMobile] = useState(false);
