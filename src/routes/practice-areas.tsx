@@ -16,7 +16,7 @@ function PracticeAreas() {
     <main>
       <PageIntro
         eyebrow="Litigation Practice"
-        title="Practice areas"
+        title="Practice Areas"
         description="Proceedings before the High Court of Kerala and the trial courts, with particular attention to Family Court matters."
       />
       <div className="site-width section-space">

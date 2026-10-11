@@ -13,8 +13,8 @@ export type PracticeArea = {
 export const PRACTICE_AREAS: readonly PracticeArea[] = [
   {
     slug: 'appellate-proceedings',
-    title: 'High Court appellate proceedings',
-    shortTitle: 'Appellate proceedings',
+    title: 'High Court Appellate Proceedings',
+    shortTitle: 'Appellate Proceedings',
     description:
       'Appellate proceedings before the High Court of Kerala, with preparation informed by the record, applicable statutory provisions and relevant judicial precedents.',
     overview:
@@ -24,8 +24,8 @@ export const PRACTICE_AREAS: readonly PracticeArea[] = [
   },
   {
     slug: 'writ-petitions',
-    title: 'Writ petitions & constitutional remedies',
-    shortTitle: 'Writ petitions',
+    title: 'Writ Petitions & Constitutional Remedies',
+    shortTitle: 'Writ Petitions',
     description:
       'Writ petitions and constitutional remedies before the High Court of Kerala.',
     overview:
@@ -39,8 +39,8 @@ export const PRACTICE_AREAS: readonly PracticeArea[] = [
   },
   {
     slug: 'matrimonial-family-disputes',
-    title: 'Matrimonial & family disputes',
-    shortTitle: 'Matrimonial & family disputes',
+    title: 'Matrimonial & Family Disputes',
+    shortTitle: 'Matrimonial & Family Disputes',
     description: 'Matrimonial and family proceedings before local Family Courts.',
     overview:
       'The practice includes matrimonial and family proceedings before local Family Courts. Each matter is considered in the context of its facts, available records and applicable law.',
@@ -49,7 +49,7 @@ export const PRACTICE_AREAS: readonly PracticeArea[] = [
   },
   {
     slug: 'maintenance-proceedings',
-    title: 'Maintenance proceedings',
+    title: 'Maintenance Proceedings',
     shortTitle: 'Maintenance',
     description: 'Maintenance and related proceedings before local Family Courts.',
     overview:
@@ -59,8 +59,8 @@ export const PRACTICE_AREAS: readonly PracticeArea[] = [
   },
   {
     slug: 'custody-guardianship',
-    title: 'Custody & guardianship matters',
-    shortTitle: 'Custody & guardianship',
+    title: 'Custody & Guardianship Matters',
+    shortTitle: 'Custody & Guardianship',
     description: 'Custody and guardianship matters before local Family Courts.',
     overview:
       'The practice includes custody and guardianship matters. Each matter is considered in the context of its facts, available records and applicable law.',

@@ -27,7 +27,7 @@ describe("App routing", () => {
   });
 
   it("resolves known slugs and leaves unknown practice areas unmatched", () => {
-    expect(getPracticeArea("appellate-proceedings")?.shortTitle).toBe("Appellate proceedings");
+    expect(getPracticeArea("appellate-proceedings")?.shortTitle).toBe("Appellate Proceedings");
     expect(getPracticeArea("unknown-area")).toBeUndefined();
   });
 
