@@ -6,3 +6,4 @@
 - [x] Add catalog-driven practice-area submenu and dedicated pages for the five detailed litigation areas.
 - [ ] Add verified full address, telephone, email, and advocate particulars — awaiting details from the chambers.
 - [ ] Obtain chambers' review of website content for BCI compliance before publication — awaiting professional review.
+- [ ] Replace placeholder partner profiles with verified details and photos, and have them reviewed for BCI compliance — awaiting details from the chambers.
