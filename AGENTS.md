@@ -14,5 +14,5 @@
 - Keep entry consent in session storage and require explicit acceptance; consent is visit-scoped and is not client or case data.
 - The consultation desk downloads an unsent draft until verified contact details and a delivery service are supplied; never imply a draft was submitted.
 - Define the visual palette in global semantic CSS tokens; page elements must remain theme-adherent.
-- Keep practice-area details in one shared catalog that drives overview links, dedicated pages, and the navigation submenu, so additions do not require repeated content edits.
+- Keep practice-area details in one shared catalog that drives overview links, homepage tiles, dedicated pages, and the navigation submenu, so additions do not require repeated content edits.
 - Keep advocate/partner profiles in one shared catalog (`src/lib/partners.ts`) that drives the chambers page, so adding or editing a partner does not require page markup changes.

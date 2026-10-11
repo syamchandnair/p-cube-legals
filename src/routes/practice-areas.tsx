@@ -6,7 +6,7 @@ import { PRACTICE_AREAS } from '@/lib/practice-areas';
 export const Route = createFileRoute('/practice-areas')({
   head: () => metadata(
     'Practice Areas',
-    'High Court appellate and writ matters, Family Court and trial court litigation at P Cube Legals, Kochi.',
+    'Practice areas of P Cube Legals, Kochi: matters before the High Court of Kerala, District / Subordinate Courts and Specialized & Grassroots Courts.',
   ),
   component: PracticeAreas,
 });
@@ -17,7 +17,7 @@ function PracticeAreas() {
       <PageIntro
         eyebrow="Litigation Practice"
         title="Practice Areas"
-        description="Proceedings before the High Court of Kerala and the trial courts, with particular attention to Family Court matters."
+        description="Proceedings before the High Court of Kerala, District / Subordinate Courts and Specialized & Grassroots Courts."
       />
       <div className="site-width section-space">
         <div className="grid md:grid-cols-2 gap-x-14">

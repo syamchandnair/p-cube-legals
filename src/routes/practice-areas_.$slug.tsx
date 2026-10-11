@@ -32,8 +32,7 @@ function PracticeAreaPage() {
           <Link to="/practice-areas" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground">
             <ArrowLeft className="size-4" /> All practice areas
           </Link>
-          <p className="eyebrow text-muted-foreground mt-8 mb-5">Litigation practice · Kochi, Kerala</p>
-          <div className="flex items-start gap-5">
+          <div className="flex items-start gap-5 mt-8">
             <Icon className="size-7 text-gold mt-2 shrink-0" />
             <div>
               <h1 className="page-heading max-w-3xl">{practiceArea.title}</h1>
