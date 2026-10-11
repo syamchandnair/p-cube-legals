@@ -1,0 +1,49 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpRight } from 'lucide-react';
+import { ContactBand, metadata, PageIntro } from '@/components/chambers/site';
+import { PRACTICE_AREAS } from '@/lib/practice-areas';
+
+export const Route = createFileRoute('/practice-areas')({
+  head: () => metadata(
+    'Practice Areas',
+    'High Court appellate and writ matters, Family Court and trial court litigation at P Cube Legals, Kochi.',
+  ),
+  component: PracticeAreas,
+});
+
+function PracticeAreas() {
+  return (
+    <main>
+      <PageIntro
+        eyebrow="Litigation Practice"
+        title="Practice areas"
+        description="Proceedings before the High Court of Kerala and the trial courts, with particular attention to Family Court matters."
+      />
+      <div className="site-width section-space">
+        <div className="grid md:grid-cols-2 gap-x-14">
+          {PRACTICE_AREAS.map(({ icon: Icon, slug, title, description, overview }) => (
+            <Link
+              key={slug}
+              to="/practice-areas/$slug"
+              params={{ slug }}
+              className="group border-t border-gold py-8 md:py-10 hover:bg-secondary transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <Icon className="size-6 text-gold" />
+                <ArrowUpRight className="size-4 text-primary" />
+              </div>
+              <h2 className="text-3xl mt-5">{title}</h2>
+              <p className="text-sm text-muted-foreground leading-7 mt-4">{overview}</p>
+              <span className="rule-link mt-6">View practice details</span>
+              <span className="sr-only">{description}</span>
+            </Link>
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground leading-6 mt-8">
+          The availability of representation is subject to a conflict check, review of the matter and an express engagement with the chambers. No outcome is assured.
+        </p>
+      </div>
+      <ContactBand />
+    </main>
+  );
+}
