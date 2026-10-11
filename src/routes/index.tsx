@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({ head: () => metadata('Litigation & L
 const COURTS = [
   { icon: Landmark, label: 'High Court of Kerala' },
   { icon: Scale, label: 'District and Subordinate Courts' },
-  { icon: Users, label: 'Specialized and Tribal/Grassroots Courts' },
+  { icon: Users, label: 'Specialized & Grassroots Courts' },
   { icon: BookOpen, label: 'Legal Research & Advisory' },
 ] as const;
 function Home() {
