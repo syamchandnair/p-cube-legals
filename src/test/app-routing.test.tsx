@@ -30,4 +30,24 @@ describe("App routing", () => {
     expect(getPracticeArea("appellate-proceedings")?.shortTitle).toBe("Appellate proceedings");
     expect(getPracticeArea("unknown-area")).toBeUndefined();
   });
+
+  it("routes each practice-area slug to its own detail page, not the overview", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    for (const { slug } of PRACTICE_AREAS) {
+      const last = router.matchRoutes(`/practice-areas/${slug}`).at(-1);
+      expect(last?.routeId).toBe("/practice-areas_/$slug");
+      expect(last?.params).toEqual({ slug });
+    }
+    expect(router.matchRoutes("/practice-areas").at(-1)?.routeId).toBe("/practice-areas");
+  });
+
+  it("loads serializable data for known slugs and not-found for unknown ones", async () => {
+    const { Route } = await import("@/routes/practice-areas_.$slug");
+    const load = (slug: string) => (Route.options.loader as (c: { params: { slug: string } }) => unknown)({ params: { slug } });
+
+    const data = load("writ-petitions");
+    expect(JSON.parse(JSON.stringify(data))).toEqual(data);
+    expect(() => load("unknown-area")).toThrow();
+  });
 });
