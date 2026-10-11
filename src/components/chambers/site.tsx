@@ -1,11 +1,12 @@
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { ArrowRight, ArrowUpRight, MapPin, Menu, Scale, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown, MapPin, Menu, Scale, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DISCLAIMER_KEY, hasAcceptedDisclaimer } from '@/lib/disclaimer';
+import { PRACTICE_AREAS } from '@/lib/practice-areas';
 
-const nav = [{ to: '/', label: 'Home' }, { to: '/practice-areas', label: 'Practice Areas' }, { to: '/advisory-research', label: 'Advisory & Research' }, { to: '/chambers', label: 'The Chambers' }, { to: '/contact', label: 'Contact' }] as const;
+const nav = [{ to: '/', label: 'Home' }, { to: '/advisory-research', label: 'Advisory & Research' }, { to: '/chambers', label: 'The Chambers' }, { to: '/contact', label: 'Contact' }] as const;
 import logoBlack from '@/assets/pcubelegals-logo-black.png';
 import logoWhite from '@/assets/pcubelegals-logo-white.png';
 export function Brand({ footer = false }: { footer?: boolean }) {
@@ -13,7 +14,25 @@ export function Brand({ footer = false }: { footer?: boolean }) {
 }
 export function Header() {
   const [mobile, setMobile] = useState(false);
-  return <header className="bg-background border-b border-border"><div className="site-width flex h-24 items-center justify-between gap-6"><Brand /><nav className="hidden lg:flex items-center gap-7" aria-label="Main navigation">{nav.map(item => <Link key={item.to} to={item.to} className="text-[12px] py-3 text-muted-foreground border-b border-transparent transition-colors hover:text-primary" activeProps={{ className: 'text-primary border-gold' }} activeOptions={{ exact: true }}>{item.label}</Link>)}</nav><Button asChild variant="outline" className="hidden sm:inline-flex rounded-sm text-[11px] h-10 border-primary px-5"><Link to="/contact">Consultation Desk <ArrowUpRight className="size-3" /></Link></Button><Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMobile(!mobile)} aria-label={mobile ? 'Close navigation' : 'Open navigation'}>{mobile ? <X /> : <Menu />}</Button></div>{mobile && <nav className="site-width pb-5 flex flex-col gap-4 lg:hidden" aria-label="Mobile navigation">{nav.map(item => <Link key={item.to} to={item.to} onClick={() => setMobile(false)} className="text-sm">{item.label}</Link>)}</nav>}</header>;
+  return <header className="bg-background border-b border-border"><div className="site-width flex h-24 items-center justify-between gap-6"><Brand /><nav className="hidden lg:flex items-center gap-7" aria-label="Main navigation"><Link to="/" className="text-[12px] py-3 text-muted-foreground border-b border-transparent transition-colors hover:text-primary" activeProps={{ className: 'text-primary border-gold' }} activeOptions={{ exact: true }}>Home</Link><PracticeAreasMenu />{nav.slice(1).map(item => <Link key={item.to} to={item.to} className="text-[12px] py-3 text-muted-foreground border-b border-transparent transition-colors hover:text-primary" activeProps={{ className: 'text-primary border-gold' }} activeOptions={{ exact: true }}>{item.label}</Link>)}</nav><Button asChild variant="outline" className="hidden sm:inline-flex rounded-sm text-[11px] h-10 border-primary px-5"><Link to="/contact">Consultation Desk <ArrowUpRight className="size-3" /></Link></Button><Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMobile(!mobile)} aria-label={mobile ? 'Close navigation' : 'Open navigation'}>{mobile ? <X /> : <Menu />}</Button></div>{mobile && <nav className="site-width pb-5 flex flex-col gap-4 lg:hidden" aria-label="Mobile navigation"><Link to="/" onClick={() => setMobile(false)} className="text-sm">Home</Link><PracticeAreasMenu mobile onNavigate={() => setMobile(false)} />{nav.slice(1).map(item => <Link key={item.to} to={item.to} onClick={() => setMobile(false)} className="text-sm">{item.label}</Link>)}</nav>}</header>;
+}
+function PracticeAreasMenu({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate?: () => void }) {
+  const [open, setOpen] = useState(false);
+  return <div className={mobile ? '' : 'relative'}>
+    <Button
+      variant="ghost"
+      onClick={() => setOpen(!open)}
+      aria-expanded={open}
+      aria-controls={mobile ? 'practice-area-mobile-menu' : 'practice-area-desktop-menu'}
+      className={mobile ? 'h-auto p-0 text-sm' : 'h-auto p-0 text-[12px] text-muted-foreground'}
+    >
+      Practice Areas <ChevronDown className={`size-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+    </Button>
+    {open && <div id={mobile ? 'practice-area-mobile-menu' : 'practice-area-desktop-menu'} className={mobile ? 'flex flex-col gap-3 border-l border-border ml-2 mt-3 pl-4' : 'absolute left-0 top-full z-30 flex min-w-64 flex-col border border-border bg-background py-2 shadow-lg'}>
+      <Link to="/practice-areas" onClick={onNavigate} className={mobile ? 'text-sm text-muted-foreground hover:text-foreground' : 'px-4 py-2 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground'}>All Practice Areas</Link>
+      {PRACTICE_AREAS.map(area => <Link key={area.slug} to="/practice-areas/$slug" params={{ slug: area.slug }} onClick={onNavigate} className={mobile ? 'text-sm text-muted-foreground hover:text-foreground' : 'px-4 py-2 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground'}>{area.shortTitle}</Link>)}
+    </div>}
+  </div>;
 }
 export function Footer() {
   return <footer className="bg-chambers text-chambers-foreground"><div className="site-width py-12 grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]"><div><Brand footer /><p className="text-xs leading-6 text-chambers-foreground/60 mt-5 max-w-xs">A litigation and advisory practice based in Kochi, Kerala.</p></div><div><p className="eyebrow text-gold mb-5">The Practice</p><div className="flex flex-col gap-3 text-xs text-chambers-foreground/75"><Link to="/practice-areas">Litigation & Practice Areas</Link><Link to="/advisory-research">Advisory & Research</Link><Link to="/chambers">About the Chambers</Link></div></div><div><p className="eyebrow text-gold mb-5">Chamber Location</p><p className="flex gap-2 text-xs leading-6"><MapPin className="size-4 mt-1 text-gold" />Kochi (Cochin)<br />Kerala, India</p><Link to="/contact" className="inline-flex items-center gap-3 text-xs mt-5">Contact information <ArrowUpRight className="size-3" /></Link></div></div><div className="site-width py-5 border-t border-chambers-foreground/15 flex flex-wrap justify-between gap-4 text-[11px] text-chambers-foreground/50"><span>© {new Date().getFullYear()} P Cube Legals. All rights reserved.</span><span>For informational purposes only. Not legal advice.</span></div></footer>;
