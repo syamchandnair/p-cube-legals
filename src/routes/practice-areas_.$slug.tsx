@@ -3,21 +3,26 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { ContactBand, metadata } from '@/components/chambers/site';
 import { PRACTICE_AREAS, getPracticeArea } from '@/lib/practice-areas';
 
-export const Route = createFileRoute('/practice-areas/$slug')({
+// Not nested under /practice-areas (the trailing underscore): that route is the overview page and
+// renders no <Outlet />. The loader returns only the slug because catalog entries hold a React icon
+// component, which cannot be serialized for SSR; the page looks the entry up again.
+export const Route = createFileRoute('/practice-areas_/$slug')({
   loader: ({ params }) => {
-    const practiceArea = getPracticeArea(params.slug);
-    if (!practiceArea) throw notFound();
-    return practiceArea;
+    if (!getPracticeArea(params.slug)) throw notFound();
+    return { slug: params.slug };
   },
-  head: ({ loaderData }) =>
-    metadata(loaderData.title, loaderData.description),
+  head: ({ params }) => {
+    const area = getPracticeArea(params.slug);
+    return metadata(area?.title ?? 'Practice area not found', area?.description ?? 'This practice area page does not exist.');
+  },
   notFoundComponent: PracticeAreaNotFound,
   errorComponent: PracticeAreaError,
   component: PracticeAreaPage,
 });
 
 function PracticeAreaPage() {
-  const practiceArea = Route.useLoaderData();
+  const { slug } = Route.useLoaderData();
+  const practiceArea = getPracticeArea(slug)!;
   const Icon = practiceArea.icon;
 
   return (

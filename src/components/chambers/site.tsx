@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowRight, ArrowUpRight, ChevronDown, MapPin, Menu, Scale, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,7 +18,17 @@ export function Header() {
 }
 function PracticeAreasMenu({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
-  return <div className={mobile ? '' : 'relative'}>
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open || mobile) return;
+    const onPointer = (e: PointerEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('pointerdown', onPointer); document.removeEventListener('keydown', onKey); };
+  }, [open, mobile]);
+  const select = () => { setOpen(false); onNavigate?.(); };
+  return <div ref={ref} className={mobile ? '' : 'relative'}>
     <Button
       variant="ghost"
       onClick={() => setOpen(!open)}
@@ -29,8 +39,8 @@ function PracticeAreasMenu({ mobile = false, onNavigate }: { mobile?: boolean; o
       Practice Areas <ChevronDown className={`size-3 transition-transform ${open ? 'rotate-180' : ''}`} />
     </Button>
     {open && <div id={mobile ? 'practice-area-mobile-menu' : 'practice-area-desktop-menu'} className={mobile ? 'flex flex-col gap-3 border-l border-border ml-2 mt-3 pl-4' : 'absolute left-0 top-full z-30 flex min-w-64 flex-col border border-border bg-background py-2 shadow-lg'}>
-      <Link to="/practice-areas" onClick={onNavigate} className={mobile ? 'text-sm text-muted-foreground hover:text-foreground' : 'px-4 py-2 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground'}>All Practice Areas</Link>
-      {PRACTICE_AREAS.map(area => <Link key={area.slug} to="/practice-areas/$slug" params={{ slug: area.slug }} onClick={onNavigate} className={mobile ? 'text-sm text-muted-foreground hover:text-foreground' : 'px-4 py-2 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground'}>{area.shortTitle}</Link>)}
+      <Link to="/practice-areas" onClick={select} className={mobile ? 'text-sm text-muted-foreground hover:text-foreground' : 'px-4 py-2 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground'}>All Practice Areas</Link>
+      {PRACTICE_AREAS.map(area => <Link key={area.slug} to="/practice-areas/$slug" params={{ slug: area.slug }} onClick={select} className={mobile ? 'text-sm text-muted-foreground hover:text-foreground' : 'px-4 py-2 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground'}>{area.shortTitle}</Link>)}
     </div>}
   </div>;
 }
