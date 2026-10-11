@@ -45,7 +45,7 @@ function PracticeAreaPage() {
       <section className="site-width section-space grid md:grid-cols-[1fr_1fr] gap-10 md:gap-20">
         <div>
           <p className="eyebrow text-muted-foreground mb-4">The practice</p>
-          <h2 className="section-title">Considered preparation.</h2>
+          <h2 className="section-title">Considered Preparation.</h2>
           <p className="text-sm text-muted-foreground leading-7 mt-6">{practiceArea.overview}</p>
         </div>
         <div className="border-t border-gold pt-6">
@@ -72,7 +72,7 @@ function PracticeAreaNotFound() {
   return (
     <main className="site-width section-space">
       <p className="eyebrow text-muted-foreground mb-4">Practice areas</p>
-      <h1 className="section-title">Practice area not found</h1>
+      <h1 className="section-title">Practice Area Not Found</h1>
       <p className="text-sm text-muted-foreground leading-7 mt-4">There is no practice area at this address.</p>
       <Link to="/practice-areas" className="rule-link mt-7">Return to all practice areas <ArrowUpRight className="size-4" /></Link>
     </main>
@@ -83,7 +83,7 @@ function PracticeAreaError() {
   return (
     <main className="site-width section-space">
       <p className="eyebrow text-muted-foreground mb-4">Practice areas</p>
-      <h1 className="section-title">This page could not be displayed.</h1>
+      <h1 className="section-title">This Page Could Not Be Displayed.</h1>
       <Link to="/practice-areas" className="rule-link mt-7">Return to all practice areas <ArrowUpRight className="size-4" /></Link>
     </main>
   );
