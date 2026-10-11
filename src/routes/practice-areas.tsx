@@ -1,7 +1,49 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { Landmark, Scale } from 'lucide-react';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpRight } from 'lucide-react';
 import { ContactBand, metadata, PageIntro } from '@/components/chambers/site';
-export const Route = createFileRoute('/practice-areas')({ head: () => metadata('Practice Areas', 'High Court appellate and writ matters, Family Court and trial court litigation at P Cube Legals, Kochi.'), component: PracticeAreas });
+import { PRACTICE_AREAS } from '@/lib/practice-areas';
+
+export const Route = createFileRoute('/practice-areas')({
+  head: () => metadata(
+    'Practice Areas',
+    'High Court appellate and writ matters, Family Court and trial court litigation at P Cube Legals, Kochi.',
+  ),
+  component: PracticeAreas,
+});
+
 function PracticeAreas() {
-  return <main><PageIntro eyebrow="Litigation Practice" title="Practice areas" description="Proceedings before the High Court of Kerala and the trial courts, with particular attention to Family Court matters." /><div className="site-width section-space"><div className="grid md:grid-cols-2 gap-12 md:gap-20">{[{ icon: Landmark, title: 'High Court Appellate & Writ Matters', body: 'The chambers handles appellate proceedings and writ petitions before the High Court of Kerala. Preparation includes examination of the record, applicable statutory provisions and relevant judicial precedents.', items: ['Appellate proceedings', 'Writ petitions and constitutional remedies', 'Petitions and related interlocutory applications', 'Case-law analysis and preparation of submissions'] }, { icon: Scale, title: 'Family & Trial Court Litigation', body: 'The practice includes matrimonial and family proceedings before local Family Courts, alongside trial court matters. Each matter is considered in the context of its facts, available records and applicable law.', items: ['Matrimonial and family disputes', 'Maintenance and related proceedings', 'Custody and guardianship matters', 'Pleadings, evidence and trial preparation'] }].map(({ icon: Icon, title, body, items }) => <section key={title} className="border-t border-gold pt-8"><Icon className="size-7 text-gold" /><h2 className="text-3xl mt-6">{title}</h2><p className="text-sm text-muted-foreground leading-7 mt-5">{body}</p><ul className="mt-7 space-y-4 text-xs">{items.map(item => <li key={item} className="border-b border-border pb-4">{item}</li>)}</ul></section>)}</div><p className="text-xs text-muted-foreground leading-6 mt-12">The availability of representation is subject to a conflict check, review of the matter and an express engagement with the chambers. No outcome is assured.</p></div><ContactBand /></main>;
+  return (
+    <main>
+      <PageIntro
+        eyebrow="Litigation Practice"
+        title="Practice areas"
+        description="Proceedings before the High Court of Kerala and the trial courts, with particular attention to Family Court matters."
+      />
+      <div className="site-width section-space">
+        <div className="grid md:grid-cols-2 gap-x-14">
+          {PRACTICE_AREAS.map(({ icon: Icon, slug, title, description, overview }) => (
+            <Link
+              key={slug}
+              to="/practice-areas/$slug"
+              params={{ slug }}
+              className="group border-t border-gold py-8 md:py-10 hover:bg-secondary transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <Icon className="size-6 text-gold" />
+                <ArrowUpRight className="size-4 text-primary" />
+              </div>
+              <h2 className="text-3xl mt-5">{title}</h2>
+              <p className="text-sm text-muted-foreground leading-7 mt-4">{overview}</p>
+              <span className="rule-link mt-6">View practice details</span>
+              <span className="sr-only">{description}</span>
+            </Link>
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground leading-6 mt-8">
+          The availability of representation is subject to a conflict check, review of the matter and an express engagement with the chambers. No outcome is assured.
+        </p>
+      </div>
+      <ContactBand />
+    </main>
+  );
 }
